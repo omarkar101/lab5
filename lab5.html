@@ -12,15 +12,15 @@
     <form class="formFlexContainer">
       <fieldset class="fieldsetContainer">
         <div id="sliderTextDiv">
-          <input type="range" id="idRange" name="range" min="1" max="4" value="1" />
-          <p>Small 6$</p>
+          <input type="range" id="sliderRange" name="range" min="1" max="4" value="1" />
+          <p id="pizzaSizeAndPriceText">Small 6$</p>
         </div>
         <div id="pizzaImgContainer">
-          <img src="pizza.jpg" width="100px" height="100px" />
+          <img id="pizzaImg" src="pizza.jpg" width="100px" height="100px" />
         </div>
       </fieldset>
 
-      <fieldset class="fieldsetContainer fieldsetFlexContainer">
+      <fieldset id="meatFieldSet" class="fieldsetContainer fieldsetFlexContainer">
         <legend>Meat Toppings (+2$ for each)</legend>
         <div>
           <input id="pepperoniCheckbox" type="checkbox" value="pepperoni" />
@@ -44,7 +44,7 @@
         </div>
       </fieldset>
 
-      <fieldset class="fieldsetContainer fieldsetFlexContainer">
+      <fieldset id="veggiesFieldSet" class="fieldsetContainer fieldsetFlexContainer">
         <legend>Veggies (+1$ for each)</legend>
         <div>
           <input id="tomatoesCheckbox" type="checkbox" value="tomatoes" />
@@ -79,15 +79,15 @@
       <fieldset class="fieldsetContainer fieldsetFlexContainer">
         <legend>Cheese</legend>
         <div>
-          <input id="regularCheeseRadio" type="radio" name="cheeseRadio" value="regularCheese" />
+          <input checked id="regularCheeseRadio" type="radio" name="cheeseRadio" value="1" />
           <label for="regularCheeseRadio">Regular Cheese</label>
         </div>
         <div>
-          <input id="noCheeseRadio" type="radio" name="cheeseRadio" value="noCheese" />
+          <input id="noCheeseRadio" type="radio" name="cheeseRadio" value="2" />
           <label for="noCheeseRadio">No Cheese</label>
         </div>
         <div>
-          <input id="extraCheeseRadio" type="radio" name="cheeseRadio" value="extraCheese" />
+          <input id="extraCheeseRadio" type="radio" name="cheeseRadio" value="3" />
           <label for="extraCheeseRadio">Extra Cheese ($3)</label>
         </div>
       </fieldset>
@@ -95,8 +95,8 @@
       <fieldset id="paymentFieldset" class="fieldsetContainer">
         <legend>Payment</legend>
         <div>
-          <input id="cashPaymentRadio" type="radio" name="paymentRadio" value="cash" />
-          <label for="cashPaymentRadio">Regular Cheese</label>
+          <input checked id="cashPaymentRadio" type="radio" name="paymentRadio" value="cash" />
+          <label for="cashPaymentRadio">Cash</label>
         </div>
         <div>
           <input id="masterCardPaymentRadio" type="radio" name="paymentRadio" value="masterCard" />
@@ -147,5 +147,6 @@
       <ul id="orderList"></ul>
       <h2 id="total">Total</h2>
     </div>
+    <script src="lab5.js"></script>
   </body>
 </html>
