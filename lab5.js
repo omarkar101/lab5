@@ -1,4 +1,6 @@
 const sliderRange = document.getElementById('sliderRange');
+document.getElementById('addressDetailsForm').style.display='none';
+document.getElementById('OrderSummary').style.display='none';
 
 const getSize = () => {
   return sliderRange.value;
@@ -79,11 +81,36 @@ const calculateTotal = () => {
 }
 
 const fillSummary = () => {
-  
+  const orderSummaryPTag = document.getElementById('dlvrTo');
+  const firstNameField = document.getElementById('firstNameField');
+  const lastNameField = document.getElementById('lastNameField');
+  const emailField = document.getElementById('emailField');
+  const phoneNumberField = document.getElementById('phoneNumberField');
+  const citySelect = document.getElementById('citySelect');
+  const addressTextArea = document.getElementById('addressTextArea');
+  orderSummaryPTag.textContent = firstNameField.value + ' ' + lastNameField.value +
+    ', ' + emailField.value + ', ' + phoneNumberField.value + ', ' + citySelect.value + '-' + addressTextArea.value;
+
+  const orderList = document.getElementById('orderList');
+  orderList.innerHTML = ""
+  const checkedArr = _getChecked('ex1');
+  for(let i = 0; i < checkedArr.length; ++i) {
+    let li = document.createElement("li");
+    li.appendChild(document.createTextNode(checkedArr[i]));
+    orderList.appendChild(li);
+  }
+  const total = document.getElementById('total');
+  total.innerHTML = 'Total: ' + calculateTotal() + ' $';
 }
+
+const ex1NextButton = document.getElementById('ex1NextButton');
+ex1NextButton.addEventListener('click', () => {
+  
+})
 
 console.log(getSize())
 console.log(getMeat())
 console.log(getVeg())
 console.log(getCheese())
 console.log(calculateTotal())
+fillSummary();
