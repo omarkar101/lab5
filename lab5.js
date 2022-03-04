@@ -29,7 +29,9 @@ const getCheese = () => {
   const nodes = document.getElementsByName('cheeseRadio');
   for(let i = 0; i < nodes.length; ++i) {
     if (nodes[i].checked) {
-      return nodes[i].value;
+      if (nodes[i].value === 'Regular Cheese') return 1;
+      if (nodes[i].value === 'No Cheese') return 2;
+      if (nodes[i].value === 'Extra Cheese') return 3;
     }
   }
   return 0;
@@ -77,7 +79,7 @@ sliderRange.addEventListener('change', () => {
 });
 
 const calculateTotal = () => {
-  return _getSizePrice(sliderRange.value) + getMeat().length*2 + getVeg().length + (getCheese() === '3' ? 3 : 0);
+  return _getSizePrice(sliderRange.value) + getMeat().length*2 + getVeg().length + (getCheese() === 3 ? 3 : 0);
 }
 
 const fillSummary = () => {
@@ -89,7 +91,7 @@ const fillSummary = () => {
   const citySelect = document.getElementById('citySelect');
   const addressTextArea = document.getElementById('addressTextArea');
   orderSummaryPTag.textContent = firstNameField.value + ' ' + lastNameField.value +
-    ', ' + emailField.value + ', ' + phoneNumberField.value + ', ' + citySelect.options[citySelect.selectedIndex].text +
+    ', ' + emailField.value + ', ' + phoneNumberField.value + ', ' + citySelect.value +
     '-' + addressTextArea.value;
 
   const orderList = document.getElementById('orderList');
@@ -136,12 +138,3 @@ orderSummaryBackButton.addEventListener('click', (e) => {
   document.getElementById('addressDetailsForm').style.display='inherit';
   document.getElementById('orderSummaryForm').style.display='none';
 })
-
-console.log(getSize())
-console.log(getMeat())
-console.log(getVeg())
-console.log(getCheese())
-console.log(calculateTotal())
-fillSummary();
-
-console.log(document.getElementById('spinachCheckbox'));
