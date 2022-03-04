@@ -1,6 +1,7 @@
 const sliderRange = document.getElementById('sliderRange');
 document.getElementById('addressDetailsForm').style.display='none';
 document.getElementById('orderSummaryForm').style.display='none';
+document.body.style.backgroundColor = '#01dddd';
 
 const getSize = () => {
   return sliderRange.value;
@@ -11,7 +12,7 @@ const _getChecked = (elementId) => {
   const checkArr = [];
   for(let i=0; i<nodes.length; ++i) {
     if(nodes[i].checked) {
-      checkArr.push(nodes[i].value);
+      checkArr.push(nodes[i]);
     }
   }
   return checkArr;
@@ -52,23 +53,35 @@ const _getSizePrice = (sliderValue) => {
   }
 }
 
+const _getPizzaSize = (sliderValue) => {
+  if (sliderValue === '1') {
+    return 'Small';
+  } else if (sliderValue === '2') {
+    return 'Medium';
+  } else if (sliderValue === '3') {
+    return 'Large';
+  } else if (sliderValue === '4') {
+    return 'X-Large';
+  }
+}
+
 const ChangePizzaSize = (sliderValue) => {
   const pizzaSizeAndPriceText = document.getElementById('pizzaSizeAndPriceText');
   const pizzaImg = document.getElementById('pizzaImg');
   if (sliderValue === '1') {
-    pizzaSizeAndPriceText.textContent = 'Small ' + _getSizePrice(sliderValue) + '$';
+    pizzaSizeAndPriceText.textContent = _getPizzaSize(sliderValue) + ' ' + _getSizePrice(sliderValue) + '$';
     pizzaImg.style.width = '100px';
     pizzaImg.style.height = '100px';
   } else if (sliderValue === '2') {
-    pizzaSizeAndPriceText.textContent = 'Medium ' + _getSizePrice(sliderValue) + '$';
+    pizzaSizeAndPriceText.textContent = _getPizzaSize(sliderValue) + ' ' + _getSizePrice(sliderValue) + '$';
     pizzaImg.style.width = '150px';
     pizzaImg.style.height = '150px';
   } else if (sliderValue === '3') {
-    pizzaSizeAndPriceText.textContent = 'Large ' + _getSizePrice(sliderValue) + '$';
+    pizzaSizeAndPriceText.textContent = _getPizzaSize(sliderValue) + ' ' + _getSizePrice(sliderValue) + '$';
     pizzaImg.style.width = '200px';
     pizzaImg.style.height = '200px';
   } else if (sliderValue === '4') {
-    pizzaSizeAndPriceText.textContent = 'X-Large ' + _getSizePrice(sliderValue) + '$';
+    pizzaSizeAndPriceText.textContent = _getPizzaSize(sliderValue) + ' ' + _getSizePrice(sliderValue) + '$';
     pizzaImg.style.width = '250px';
     pizzaImg.style.height = '250px';
   }
@@ -96,45 +109,76 @@ const fillSummary = () => {
 
   const orderList = document.getElementById('orderList');
   orderList.innerHTML = ""
+  let li = document.createElement("li");
+  li.appendChild(document.createTextNode('-' + _getPizzaSize(sliderRange.value) + ' size'))
+  orderList.append(li);
   const checkedArr = _getChecked('ex1');
   for(let i = 0; i < checkedArr.length; ++i) {
-    let li = document.createElement("li");
-    li.appendChild(document.createTextNode(checkedArr[i]));
-    orderList.appendChild(li);
+    if (checkedArr[i].getAttribute('name') != 'paymentRadio') {
+      li = document.createElement("li");
+      li.appendChild(document.createTextNode(checkedArr[i].value));
+      orderList.appendChild(li);
+    }
   }
   const total = document.getElementById('total');
   total.innerHTML = 'Total: ' + calculateTotal() + ' $';
 }
 
+const gotoPage = (pageNumber) => {
+  if (pageNumber === 1) {
+    document.getElementById('ex1').style.display='inherit';
+    document.getElementById('addressDetailsForm').style.display='none';
+    document.getElementById('orderSummaryForm').style.display='none';
+    document.body.style.backgroundColor = '#01dddd';
+  } else if (pageNumber === 2) {
+    document.getElementById('ex1').style.display='none';
+    document.getElementById('addressDetailsForm').style.display='inherit';
+    document.getElementById('orderSummaryForm').style.display='none';
+    document.body.style.backgroundColor = '#e93a57';
+  } else if (pageNumber === 3) {
+    document.getElementById('ex1').style.display='none';
+    document.getElementById('addressDetailsForm').style.display='none';
+    document.getElementById('orderSummaryForm').style.display='inherit';
+    document.body.style.backgroundColor = '#3fc38e';
+  }
+}
+
+const checkInfo = () => {
+  const addressDetailsForm = document.getElementById('addressDetailsForm');
+  const inputs = addressDetailsForm.getElementsByClassName('addressDetailsFormFields');
+  for(let i = 0; i < inputs.length; ++i) {
+    if (inputs[i].value === '') return false;
+  }
+  return true;
+}
+
 const ex1NextButton = document.getElementById('ex1NextButton');
 ex1NextButton.addEventListener('click', (e) => {
   e.preventDefault();
-  document.getElementById('ex1').style.display='none';
-  document.getElementById('addressDetailsForm').style.display='inherit';
-  document.getElementById('orderSummaryForm').style.display='none';
+  gotoPage(2);
 })
 
 const addressDetailsFormBackButton = document.getElementById('addressDetailsFormBackButton')
 addressDetailsFormBackButton.addEventListener('click', (e) => {
   e.preventDefault();
-  document.getElementById('ex1').style.display='inherit';
-  document.getElementById('addressDetailsForm').style.display='none';
-  document.getElementById('orderSummaryForm').style.display='none';
+  gotoPage(1);
 })
 
 const addressDetailsFormNextButton = document.getElementById('addressDetailsFormNextButton')
 addressDetailsFormNextButton.addEventListener('click', (e) => {
   e.preventDefault();
-  document.getElementById('ex1').style.display='none';
-  document.getElementById('addressDetailsForm').style.display='none';
-  document.getElementById('orderSummaryForm').style.display='inherit';
+  if (!checkInfo()) {
+    alert('You have to fill all the form!');
+    return;
+  }
+  gotoPage(3);
   fillSummary();
 })
 
 const orderSummaryBackButton = document.getElementById('orderSummaryBackButton')
 orderSummaryBackButton.addEventListener('click', (e) => {
   e.preventDefault();
-  document.getElementById('ex1').style.display='none';
-  document.getElementById('addressDetailsForm').style.display='inherit';
-  document.getElementById('orderSummaryForm').style.display='none';
+  gotoPage(2);
 })
+
+
