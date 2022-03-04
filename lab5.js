@@ -89,7 +89,8 @@ const fillSummary = () => {
   const citySelect = document.getElementById('citySelect');
   const addressTextArea = document.getElementById('addressTextArea');
   orderSummaryPTag.textContent = firstNameField.value + ' ' + lastNameField.value +
-    ', ' + emailField.value + ', ' + phoneNumberField.value + ', ' + citySelect.value + '-' + addressTextArea.value;
+    ', ' + emailField.value + ', ' + phoneNumberField.value + ', ' + citySelect.options[citySelect.selectedIndex].text +
+    '-' + addressTextArea.value;
 
   const orderList = document.getElementById('orderList');
   orderList.innerHTML = ""
@@ -125,6 +126,7 @@ addressDetailsFormNextButton.addEventListener('click', (e) => {
   document.getElementById('ex1').style.display='none';
   document.getElementById('addressDetailsForm').style.display='none';
   document.getElementById('orderSummaryForm').style.display='inherit';
+  fillSummary();
 })
 
 const orderSummaryBackButton = document.getElementById('orderSummaryBackButton')
@@ -141,3 +143,5 @@ console.log(getVeg())
 console.log(getCheese())
 console.log(calculateTotal())
 fillSummary();
+
+console.log(document.getElementById('spinachCheckbox'));
