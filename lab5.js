@@ -1,6 +1,6 @@
 const sliderRange = document.getElementById('sliderRange');
 document.getElementById('addressDetailsForm').style.display='none';
-document.getElementById('OrderSummary').style.display='none';
+document.getElementById('orderSummaryForm').style.display='none';
 
 const getSize = () => {
   return sliderRange.value;
@@ -104,8 +104,35 @@ const fillSummary = () => {
 }
 
 const ex1NextButton = document.getElementById('ex1NextButton');
-ex1NextButton.addEventListener('click', () => {
-  
+ex1NextButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('ex1').style.display='none';
+  document.getElementById('addressDetailsForm').style.display='inherit';
+  document.getElementById('orderSummaryForm').style.display='none';
+})
+
+const addressDetailsFormBackButton = document.getElementById('addressDetailsFormBackButton')
+addressDetailsFormBackButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('ex1').style.display='inherit';
+  document.getElementById('addressDetailsForm').style.display='none';
+  document.getElementById('orderSummaryForm').style.display='none';
+})
+
+const addressDetailsFormNextButton = document.getElementById('addressDetailsFormNextButton')
+addressDetailsFormNextButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('ex1').style.display='none';
+  document.getElementById('addressDetailsForm').style.display='none';
+  document.getElementById('orderSummaryForm').style.display='inherit';
+})
+
+const orderSummaryBackButton = document.getElementById('orderSummaryBackButton')
+orderSummaryBackButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  document.getElementById('ex1').style.display='none';
+  document.getElementById('addressDetailsForm').style.display='inherit';
+  document.getElementById('orderSummaryForm').style.display='none';
 })
 
 console.log(getSize())

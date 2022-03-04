@@ -107,7 +107,9 @@
           <label for="visaPaymentRadio">Visa</label>
         </div>
       </fieldset>
-      <input id="ex1NextButton" type="button" value="Next">
+      <div>
+        <input id="ex1NextButton" type="button" value="Next">
+      </div>
     </form>
     <form id="addressDetailsForm">
       <div class="addressFieldContainer">
@@ -139,15 +141,24 @@
         <label for="addressTextArea">Address:</label>
         <textarea id="addressTextArea" name="addressTextArea" rows="4" cols="50"></textarea>
       </div>
+      <div>
+        <input id="addressDetailsFormBackButton" type="button" value="Back">
+        <input id="addressDetailsFormNextButton" type="button" value="Next">
+      </div>
     </form>
-    <div id="OrderSummary">
-      <h1>Order Summary</h1>
-      <h2>Deliver to</h2>
-      <p id="dlvrTo"></p>
-      <h2>Order</h2>
-      <ul id="orderList"></ul>
-      <h2 id="total">Total</h2>
-    </div>
+    <form id="orderSummaryForm">
+      <div id="OrderSummary">
+        <h1>Order Summary</h1>
+        <h2>Deliver to</h2>
+        <p id="dlvrTo"></p>
+        <h2>Order</h2>
+        <ul id="orderList"></ul>
+        <h2 id="total">Total</h2>
+      </div>
+      <div>
+        <input id="orderSummaryBackButton" type="button" value="Back">
+      </div>
+    </form>
     <script src="lab5.js"></script>
   </body>
 </html>
